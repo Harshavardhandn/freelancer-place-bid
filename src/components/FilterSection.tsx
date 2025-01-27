@@ -4,6 +4,15 @@ import { Separator } from "@/components/ui/separator";
 import { skills, experienceLevels } from "@/lib/mock-data";
 import { useState } from "react";
 
+interface FilterSectionProps {
+  selectedSkills: string[];
+  setSelectedSkills: (skills: string[]) => void;
+  selectedLevels: string[];
+  setSelectedLevels: (levels: string[]) => void;
+  budget: number;
+  setBudget: (budget: number) => void;
+}
+
 export default function FilterSection({
   selectedSkills,
   setSelectedSkills,
@@ -11,7 +20,7 @@ export default function FilterSection({
   setSelectedLevels,
   budget,
   setBudget,
-}) {
+}: FilterSectionProps) {
   const [showAllSkills, setShowAllSkills] = useState(false);
   const initialSkillsCount = 7; // Show first 7 skills including "Content Creation"
   

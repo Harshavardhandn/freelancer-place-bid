@@ -2,16 +2,18 @@ import { useState } from "react";
 import { Search, Sliders } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import ProjectCard from "@/components/ProjectCard";
 import FilterSection from "@/components/FilterSection";
 import { mockProjects } from "@/lib/mock-data";
 
 export default function ClientsPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedSkills, setSelectedSkills] = useState([]);
-  const [selectedLevels, setSelectedLevels] = useState([]);
-  const [budget, setBudget] = useState(50000);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [selectedLevels, setSelectedLevels] = useState<string[]>([]);
+  const [budget, setBudget] = useState<number>(50000);
   const [showFilters, setShowFilters] = useState(true);
 
   const filteredProjects = mockProjects.filter((project) => {

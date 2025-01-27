@@ -4,20 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { mockProjects } from "@/lib/mock-data";
-import { useToast } from "@/components/ui/use-toast";
 
 export default function ProjectDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { toast } = useToast();
   const project = mockProjects.find(p => p.id === id);
-
-  const handleApply = () => {
-    toast({
-      title: "Application Submitted",
-      description: "Your application has been submitted successfully!",
-    });
-  };
 
   if (!project) {
     return (
@@ -80,12 +71,6 @@ export default function ProjectDetails() {
                 </div>
                 <p className="mt-1 text-2xl font-semibold">{project.experienceLevel}</p>
               </div>
-            </div>
-
-            <div className="flex justify-center">
-              <Button onClick={handleApply} size="lg">
-                Apply Now
-              </Button>
             </div>
           </CardContent>
         </Card>
