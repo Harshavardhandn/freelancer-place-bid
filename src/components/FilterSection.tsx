@@ -2,6 +2,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { skills, experienceLevels } from "@/lib/mock-data";
+import { useState } from "react";
 
 interface FilterSectionProps {
   selectedSkills: string[];
@@ -20,12 +21,19 @@ export default function FilterSection({
   budget,
   setBudget,
 }: FilterSectionProps) {
+  const [showAllSkills, setShowAllSkills] = useState(false);
+  const initialSkillsCount = 7; // Show first 7 skills including "Content Creation"
+  
+  const visibleSkills = showAllSkills 
+    ? skills 
+    : skills.slice(0, initialSkillsCount);
+
   return (
     <div className="space-y-6">
       <div>
         <Label className="text-base">Skills</Label>
         <div className="mt-3 checkbox-container">
-          {skills.map((skill) => (
+          {visibleSkills.map((skill) => (
             <div key={skill} className="flex items-center space-x-2">
               <Checkbox
                 id={skill}
@@ -46,6 +54,14 @@ export default function FilterSection({
               </label>
             </div>
           ))}
+          {!showAllSkills && (
+            <button
+              onClick={() => setShowAllSkills(true)}
+              className="text-sm text-blue-600 hover:text-blue-800 mt-2 font-medium"
+            >
+              + more
+            </button>
+          )}
         </div>
       </div>
 

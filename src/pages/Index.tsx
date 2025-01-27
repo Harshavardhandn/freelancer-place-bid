@@ -13,7 +13,7 @@ export default function ClientsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [selectedLevels, setSelectedLevels] = useState<string[]>([]);
-  const [budget, setBudget] = useState<number>(10000);
+  const [budget, setBudget] = useState<number>(50000);
   const [showFilters, setShowFilters] = useState(true);
 
   const filteredProjects = mockProjects.filter((project) => {
