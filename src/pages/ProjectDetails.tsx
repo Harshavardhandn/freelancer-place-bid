@@ -82,8 +82,8 @@ export default function ProjectDetails() {
               </div>
             </div>
 
-            <div className="flex justify-end">
-              <Button onClick={handleApply} size="lg">
+            <div className="flex justify-center pt-4">
+              <Button onClick={handleApply} size="lg" className="w-full md:w-auto">
                 Apply Now
               </Button>
             </div>
