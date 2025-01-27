@@ -3,17 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Clock, DollarSign } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-interface Project {
-  id: string;
-  name: string;
-  description: string;
-  skills: string[];
-  duration: string;
-  budget: number;
-  experienceLevel: string;
-}
-
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({ project }) {
   const navigate = useNavigate();
 
   return (
