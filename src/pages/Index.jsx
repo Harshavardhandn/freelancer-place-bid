@@ -1,24 +1,23 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { mockProjects } from "@/lib/mock-data";
 import ProjectCard from "@/components/ProjectCard";
 import FilterSection from "@/components/FilterSection";
 
 export default function Index() {
-  const navigate = useNavigate();
   const [selectedSkills, setSelectedSkills] = useState([]);
-  const [selectedExperience, setSelectedExperience] = useState("");
-  const [maxBudget, setMaxBudget] = useState(50000);
+  const [selectedLevels, setSelectedLevels] = useState([]);
+  const [budget, setBudget] = useState(50000);
 
   const filteredProjects = mockProjects.filter((project) => {
     const matchesSkills =
       selectedSkills.length === 0 ||
       selectedSkills.some((skill) => project.skills.includes(skill));
-    const matchesExperience =
-      !selectedExperience || project.experienceLevel === selectedExperience;
-    const matchesBudget = project.budget <= maxBudget;
+    const matchesLevels =
+      selectedLevels.length === 0 ||
+      selectedLevels.includes(project.experienceLevel);
+    const matchesBudget = project.budget <= budget;
 
-    return matchesSkills && matchesExperience && matchesBudget;
+    return matchesSkills && matchesLevels && matchesBudget;
   });
 
   return (
@@ -28,10 +27,10 @@ export default function Index() {
         <FilterSection
           selectedSkills={selectedSkills}
           setSelectedSkills={setSelectedSkills}
-          selectedExperience={selectedExperience}
-          setSelectedExperience={setSelectedExperience}
-          maxBudget={maxBudget}
-          setMaxBudget={setMaxBudget}
+          selectedLevels={selectedLevels}
+          setSelectedLevels={setSelectedLevels}
+          budget={budget}
+          setBudget={setBudget}
         />
       </div>
 

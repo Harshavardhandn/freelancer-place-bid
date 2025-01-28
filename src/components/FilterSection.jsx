@@ -5,12 +5,12 @@ import { skills, experienceLevels } from "@/lib/mock-data";
 import { useState } from "react";
 
 export default function FilterSection({
-  selectedSkills,
+  selectedSkills = [],
   setSelectedSkills,
-  selectedLevels,
+  selectedLevels = [],
   setSelectedLevels,
   budget,
-  setBudget,
+  setBudget
 }) {
   const [showAllSkills, setShowAllSkills] = useState(false);
   const initialSkillsCount = 7;
