@@ -1,12 +1,15 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Clock, DollarSign } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-export default function ProjectCard({ project, onClick }) {
+export default function ProjectCard({ project }) {
+  const navigate = useNavigate();
+
   return (
     <Card 
       className="project-card cursor-pointer"
-      onClick={onClick}
+      onClick={() => navigate(`/project/${project.id}`)}
     >
       <CardHeader>
         <div className="flex items-start justify-between">

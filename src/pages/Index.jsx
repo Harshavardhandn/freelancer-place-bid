@@ -41,7 +41,6 @@ export default function Index() {
             <ProjectCard
               key={project.id}
               project={project}
-              onClick={() => navigate(`/project/${project.id}`)}
             />
           ))}
         </div>
