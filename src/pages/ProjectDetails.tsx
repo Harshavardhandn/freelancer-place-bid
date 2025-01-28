@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Clock, DollarSign, Send, User } from "lucide-react";
+import { ArrowLeft, Clock, DollarSign, Send, User, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,6 +24,11 @@ export default function ProjectDetails() {
     e.preventDefault();
     // Handle bid submission logic here
     setIsModalOpen(false);
+  };
+
+  const handleResumeUpload = () => {
+    // In a real app, this would trigger a file upload or show a stored resume
+    console.log("Resume button clicked");
   };
 
   if (!project) {
@@ -131,10 +136,21 @@ export default function ProjectDetails() {
                       />
                     </div>
 
-                    <Button type="submit" className="w-full">
-                      <Send className="h-4 w-4 mr-2" />
-                      Send Proposal
-                    </Button>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Button type="submit" className="flex-1">
+                        <Send className="h-4 w-4 mr-2" />
+                        Send Proposal
+                      </Button>
+                      <Button 
+                        type="button" 
+                        variant="secondary"
+                        onClick={handleResumeUpload}
+                        className="flex-1"
+                      >
+                        <FileText className="h-4 w-4 mr-2" />
+                        Send Resume
+                      </Button>
+                    </div>
                   </form>
                 </DialogContent>
               </Dialog>
