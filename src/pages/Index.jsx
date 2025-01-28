@@ -23,16 +23,20 @@ export default function Index() {
 
   return (
     <div className="flex min-h-screen bg-background">
-      <FilterSection
-        selectedSkills={selectedSkills}
-        setSelectedSkills={setSelectedSkills}
-        selectedExperience={selectedExperience}
-        setSelectedExperience={setSelectedExperience}
-        maxBudget={maxBudget}
-        setMaxBudget={setMaxBudget}
-      />
+      {/* Skills section with reduced width */}
+      <div className="w-1/4">
+        <FilterSection
+          selectedSkills={selectedSkills}
+          setSelectedSkills={setSelectedSkills}
+          selectedExperience={selectedExperience}
+          setSelectedExperience={setSelectedExperience}
+          maxBudget={maxBudget}
+          setMaxBudget={setMaxBudget}
+        />
+      </div>
 
-      <main className="flex-1 p-6">
+      {/* Projects section with 1.5x width */}
+      <main className="w-3/4 p-6">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredProjects.map((project) => (
             <ProjectCard

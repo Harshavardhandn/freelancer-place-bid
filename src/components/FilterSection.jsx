@@ -1,97 +1,109 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Slider } from "@/components/ui/slider";
-
-const skills = [
-  "Web Development",
-  "Mobile Development",
-  "UI/UX Design",
-  "Content Creation",
-  "Digital Marketing",
-  "Data Analysis",
-];
-
-const experienceLevels = ["Entry", "Intermediate", "Expert"];
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
+import { skills, experienceLevels } from "@/lib/mock-data";
+import { useState } from "react";
 
 export default function FilterSection({
   selectedSkills,
   setSelectedSkills,
-  selectedExperience,
-  setSelectedExperience,
-  maxBudget,
-  setMaxBudget,
+  selectedLevels,
+  setSelectedLevels,
+  budget,
+  setBudget,
 }) {
-  const toggleSkill = (skill) => {
-    if (selectedSkills.includes(skill)) {
-      setSelectedSkills(selectedSkills.filter((s) => s !== skill));
-    } else {
-      setSelectedSkills([...selectedSkills, skill]);
-    }
-  };
+  const [showAllSkills, setShowAllSkills] = useState(false);
+  const initialSkillsCount = 7;
+  
+  const visibleSkills = showAllSkills 
+    ? skills 
+    : skills.slice(0, initialSkillsCount);
 
   return (
-    <aside className="w-80 border-r bg-card p-6">
-      <div className="space-y-6">
-        <div>
-          <h2 className="text-lg font-semibold mb-4">Skills</h2>
-          <div className="flex flex-wrap gap-2">
-            {skills.map((skill) => (
-              <Badge
-                key={skill}
-                variant={selectedSkills.includes(skill) ? "default" : "outline"}
-                className="cursor-pointer"
-                onClick={() => toggleSkill(skill)}
+    <div className="space-y-6 p-6 border-r h-full">
+      <div>
+        <Label className="text-base">Skills</Label>
+        <div className="mt-3 checkbox-container">
+          {visibleSkills.map((skill) => (
+            <div key={skill} className="flex items-center space-x-2">
+              <Checkbox
+                id={skill}
+                checked={selectedSkills.includes(skill)}
+                onCheckedChange={(checked) => {
+                  if (checked) {
+                    setSelectedSkills([...selectedSkills, skill]);
+                  } else {
+                    setSelectedSkills(selectedSkills.filter((s) => s !== skill));
+                  }
+                }}
+              />
+              <label
+                htmlFor={skill}
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 {skill}
-              </Badge>
-            ))}
-          </div>
+              </label>
+            </div>
+          ))}
+          {!showAllSkills && (
+            <button
+              onClick={() => setShowAllSkills(true)}
+              className="text-sm text-blue-600 hover:text-blue-800 mt-2 font-medium"
+            >
+              + more
+            </button>
+          )}
         </div>
+      </div>
 
-        <div>
-          <h2 className="text-lg font-semibold mb-4">Experience Level</h2>
-          <div className="flex flex-wrap gap-2">
-            {experienceLevels.map((level) => (
-              <Badge
-                key={level}
-                variant={selectedExperience === level ? "default" : "outline"}
-                className="cursor-pointer"
-                onClick={() => setSelectedExperience(level === selectedExperience ? "" : level)}
+      <Separator />
+
+      <div>
+        <Label className="text-base">Experience Level</Label>
+        <div className="mt-3 space-y-2">
+          {experienceLevels.map((level) => (
+            <div key={level} className="flex items-center space-x-2">
+              <Checkbox
+                id={level}
+                checked={selectedLevels.includes(level)}
+                onCheckedChange={(checked) => {
+                  if (checked) {
+                    setSelectedLevels([...selectedLevels, level]);
+                  } else {
+                    setSelectedLevels(selectedLevels.filter((l) => l !== level));
+                  }
+                }}
+              />
+              <label
+                htmlFor={level}
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 {level}
-              </Badge>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <h2 className="text-lg font-semibold mb-4">Maximum Budget</h2>
-          <div className="space-y-4">
-            <Slider
-              value={[maxBudget]}
-              onValueChange={([value]) => setMaxBudget(value)}
-              max={50000}
-              step={1000}
-            />
-            <div className="text-sm text-muted-foreground">
-              Up to ${maxBudget.toLocaleString()}
+              </label>
             </div>
+          ))}
+        </div>
+      </div>
+
+      <Separator />
+
+      <div>
+        <Label className="text-base">Maximum Budget</Label>
+        <div className="mt-3 space-y-2">
+          <input
+            type="range"
+            min="1000"
+            max="50000"
+            step="1000"
+            value={budget}
+            onChange={(e) => setBudget(Number(e.target.value))}
+            className="range-slider"
+          />
+          <div className="flex justify-between text-sm text-muted-foreground">
+            <span>${budget.toLocaleString()}</span>
           </div>
         </div>
-
-        <Button
-          variant="outline"
-          className="w-full"
-          onClick={() => {
-            setSelectedSkills([]);
-            setSelectedExperience("");
-            setMaxBudget(50000);
-          }}
-        >
-          Reset Filters
-        </Button>
       </div>
-    </aside>
+    </div>
   );
 }
